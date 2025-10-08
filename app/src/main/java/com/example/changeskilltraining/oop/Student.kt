@@ -1,9 +1,7 @@
 package com.example.changeskilltraining.oop
 
-import android.util.Log
-import com.example.changeskilltraining.oop.abstract.Student2Abstract
-import com.example.changeskilltraining.oop.abstract.StudentAbstract
 import com.example.changeskilltraining.oop.interfaces.IStudentCallback
+import com.example.changeskilltraining.oop.model.TextBook
 
 open class Student(private val callback: IStudentCallback? = null){
      var age: Int = 20

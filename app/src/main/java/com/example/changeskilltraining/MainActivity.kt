@@ -1,32 +1,36 @@
 package com.example.changeskilltraining
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.lifecycleScope
-import com.example.changeskilltraining.oop.Student
-import com.example.changeskilltraining.oop.StudentDetails
-import com.example.changeskilltraining.oop.abstract.StudentAbstract
-import com.example.changeskilltraining.oop.activities.LoginActivity
+import com.example.changeskilltraining.first_training.Person
+import com.example.changeskilltraining.first_training.Student
+import com.example.changeskilltraining.first_training.StudentWithAbstract
+import com.example.changeskilltraining.first_training.Teacher
+import com.example.changeskilltraining.oop.model.TextBook
 import com.example.changeskilltraining.oop.dialogs.DialogInFragment
 import com.example.changeskilltraining.oop.fragments.TeacherDetailsFragment
-import com.example.changeskilltraining.oop.interfaces.IStudentCallback
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import org.w3c.dom.Text
+import java.sql.Array
 
 class MainActivity : AppCompatActivity() {
+    var listOfTextBook: ArrayList<TextBook> = ArrayList()
+    var mapOfTextBook: HashMap<String, TextBook> = HashMap()
+    var listOfTextBook2: MutableList<TextBook> = mutableListOf()
+    var listOfTextBook3: ArrayList<TextBook> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutInflater.inflate(R.layout.activity_main, null))
+
+        val student = Student()
+        student.setStudentName(name = "Liel", age = 35)
+        student.displayName()
+        student.getStudentDayClass(3)
+
+        val studentWithAbstract = StudentWithAbstract()
+        studentWithAbstract.reviseClass()
 
         /**NOTE - SAMPLE POLYMORPHISM (OOP)*/
 //        val btn = findViewById<TextView>(R.id.button)
@@ -43,14 +47,14 @@ class MainActivity : AppCompatActivity() {
         val container = findViewById<FrameLayout>(R.id.container)
 
         /**NOTE - FRAGMENT WITH BUNDLE)*/
-//        val frag = TeacherDetailsFragment.newInstance("Data 1","Data 2")
-//        supportFragmentManager.
-//        beginTransaction().
-//        add(
-//            R.id.container,
-//            frag,
-//            "TeacherDetailsFragment")
-//            .commit()
+        val frag = TeacherDetailsFragment.newInstance("Data 1","Data 2")
+        supportFragmentManager.
+        beginTransaction().
+        add(
+            R.id.container,
+            frag,
+            "TeacherDetailsFragment")
+            .commit()
 
         /**NOTE - INTENT PRESENTATION*/
 //        lifecycleScope.launch(Dispatchers.Main) {

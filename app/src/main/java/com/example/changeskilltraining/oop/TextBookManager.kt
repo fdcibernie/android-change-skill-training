@@ -1,7 +1,6 @@
 package com.example.changeskilltraining.oop
 
-import android.content.Context
-import com.example.changeskilltraining.R
+import com.example.changeskilltraining.oop.model.TextBook
 
 object TextBookManager {
 
