@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.changeskilltraining.first_training.Person
 import com.example.changeskilltraining.first_training.Student
 import com.example.changeskilltraining.first_training.StudentWithAbstract
@@ -11,10 +12,11 @@ import com.example.changeskilltraining.first_training.Teacher
 import com.example.changeskilltraining.oop.model.TextBook
 import com.example.changeskilltraining.oop.dialogs.DialogInFragment
 import com.example.changeskilltraining.oop.fragments.TeacherDetailsFragment
+import com.example.changeskilltraining.oop.interfaces.IOnCall
 import org.w3c.dom.Text
 import java.sql.Array
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IOnCall {
     var listOfTextBook: ArrayList<TextBook> = ArrayList()
     var mapOfTextBook: HashMap<String, TextBook> = HashMap()
     var listOfTextBook2: MutableList<TextBook> = mutableListOf()
@@ -32,6 +34,12 @@ class MainActivity : AppCompatActivity() {
         val studentWithAbstract = StudentWithAbstract()
         studentWithAbstract.reviseClass()
 
+        intent?.extras?.let{
+            val key1 = it.getString("KEY1")
+            val key2 = it.getString("KEY2")
+            Log.e("MainActivity","Key1: $key1, Key2: $key2" )
+        }
+
         /**NOTE - SAMPLE POLYMORPHISM (OOP)*/
 //        val btn = findViewById<TextView>(R.id.button)
 //        btn.text = "Click ME"
@@ -48,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         /**NOTE - FRAGMENT WITH BUNDLE)*/
         val frag = TeacherDetailsFragment.newInstance("Data 1","Data 2")
+        frag.setOnCallFragment(this)
         supportFragmentManager.
         beginTransaction().
         add(
@@ -94,5 +103,24 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.e("MainActivity","onDestroy called")
+    }
+
+    override fun navigateFragment(fragment: Fragment) {
+        supportFragmentManager.
+        beginTransaction().
+        replace(
+            R.id.container,
+            fragment,
+            "StudentFragment")
+            .commit()
+
+    }
+
+    override fun popFragment() {
+        Log.e("TeacherDetailsFragment-StudentFragment","popFragment" )
+        // supportFragmentManager.popBackStack()
+        val fragment = supportFragmentManager.findFragmentByTag("StudentFragment")!!
+        val transaction = supportFragmentManager.beginTransaction().remove(fragment)
+        transaction.commit()
     }
 }

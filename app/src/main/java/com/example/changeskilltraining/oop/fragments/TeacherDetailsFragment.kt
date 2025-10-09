@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.changeskilltraining.R
 import com.example.changeskilltraining.oop.StudentDetails
 import com.example.changeskilltraining.oop.adpters.WordItemsAdapter
+import com.example.changeskilltraining.oop.interfaces.IOnCall
 import com.example.changeskilltraining.oop.interfaces.IStudentCallback
 
 
@@ -23,6 +24,7 @@ class TeacherDetailsFragment : Fragment(), IStudentCallback {
     private val list = arrayListOf("Word 1", "Word 2", "Word 3", "Word 4", "Word 5")
     private var data1: String = ""
     private var data2: String = ""
+    private var onCallFragment: IOnCall? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +53,19 @@ class TeacherDetailsFragment : Fragment(), IStudentCallback {
         Log.e("TeacherDetailsFragment","Data1: $data1, Data2: $data2" )
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.e("TeacherDetailsFragment","onPause" )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e("TeacherDetailsFragment","onStop" )
+    }
+
+    fun setOnCallFragment(onCall: IOnCall) {
+        this.onCallFragment = onCall
+    }
 
     companion object {
         @JvmStatic
@@ -73,5 +88,16 @@ class TeacherDetailsFragment : Fragment(), IStudentCallback {
 
     override fun onClick(item: String) {
         Log.e("TeacherDetailsFragment","Item clicked: $item" )
+        val frag = StudentFragment.newInstance(item,"Data from TeacherDetailsFragment")
+        frag.setOnCallFragment(onCallFragment)
+        onCallFragment?.navigateFragment(frag)
+//        requireActivity().supportFragmentManager
+//            .beginTransaction()
+//            .add(
+//            R.id.container,
+//            frag,
+//            "TeacherDetailsFragment")
+//            .commit()
+
     }
 }

@@ -2,8 +2,9 @@ package com.example.changeskilltraining.first_training
 
 import android.util.Log
 import com.example.changeskilltraining.enums.DAYS
+import java.io.Serializable
 
-class Student : Person() {
+class Student : Person(), Serializable {
 
 
 //    fun setName(name: String) {

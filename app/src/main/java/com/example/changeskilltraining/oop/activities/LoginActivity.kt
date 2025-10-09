@@ -12,6 +12,7 @@ import com.example.changeskilltraining.MainActivity
 import com.example.changeskilltraining.R
 import com.example.changeskilltraining.first_training.Student
 import com.example.changeskilltraining.oop.datamanager.StudentDataManager
+import com.example.changeskilltraining.oop.model.TextBook
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,8 +33,14 @@ class LoginActivity : AppCompatActivity() {
         btnLogin?.setOnClickListener {
             val student = Student()
             StudentDataManager.student = student
+            val tb = TextBook("Math", "5th Edition",100)
             Log.e("LoginActivity", "onPause called")
+            val bundle = Bundle()
+            bundle.putString("KEY1","Liel")
+            bundle.putString("KEY2","Pabs")
+
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtras(bundle)
             startActivity(intent)
             finish()
         }
